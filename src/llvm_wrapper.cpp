@@ -60,6 +60,10 @@ LLVMPassManagerRef getFPM(KModuleRef ref) {
   return wrap(unwrap(ref)->getFPM());
 }
 
+LLVMAttributeRef LLVMCreateStructRetAttr(LLVMContextRef C, LLVMTypeRef Ty) {
+  return wrap(Attribute::getWithStructRetType(*unwrap(C), unwrap(Ty)));
+}
+
 // LLVMBuilderRef createBuilder(KModuleRef module) {
 //   return LLVMCreateBuilderInContext(wrap(unwrap(module)->getContext()));
 // }

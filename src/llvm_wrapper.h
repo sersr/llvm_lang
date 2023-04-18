@@ -37,6 +37,8 @@ LLVMModuleRef getModule(KModuleRef ref);
 LLVMContextRef getLLVMContext(KModuleRef ref);
 LLVMPassManagerRef getFPM(KModuleRef ref);
 KModule * getM(KModuleRef ref);
+
+ LLVMAttributeRef LLVMCreateStructRetAttr(LLVMContextRef C, LLVMTypeRef Ty);
 // void insertBBFunction( LLVMBuilderRef ref, LLVMBasicBlockRef bb);
 // LLVMBuilderRef createBuilder(KModuleRef module);
 // LLVMBasicBlockRef createBaseBlock(KModuleRef module, char *name);
