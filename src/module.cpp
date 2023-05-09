@@ -12,7 +12,6 @@ void KModule::init() {
   // x.setVendor(Triple::AMD);
   // x.setOS(Triple::MacOSX);
   // auto TargetTriple = x.getTriple();
-  errs() << TargetTriple << "\n" << sys::getHostCPUName();
 
   std::string Error;
   auto Target = TargetRegistry::lookupTarget(TargetTriple, Error);
@@ -28,8 +27,8 @@ void KModule::init() {
   module->setDataLayout(targetMachine->createDataLayout());
 }
 
-void KModule::writeOutput() {
-  auto fileName = "out.o";
+void KModule::writeOutput(int index, char* name) {
+  auto fileName = name;
   std::error_code EC;
   raw_fd_ostream fd(fileName, EC, (sys::fs::OpenFlags)0);
   if (EC) {
@@ -37,7 +36,7 @@ void KModule::writeOutput() {
     return;
   }
   legacy::PassManager ff;
-  auto FileType = CGFT_ObjectFile;
+  auto FileType =static_cast<CodeGenFileType>(index);
   if (getTargetMachine()->addPassesToEmitFile(ff, fd, nullptr, FileType)) {
     errs() << "TheTargetMachine can't emit a file of this type";
     return;
@@ -45,18 +44,6 @@ void KModule::writeOutput() {
 
   ff.run(*module);
   fd.flush();
-
-  // auto writer = NewArchiveMember::getFile(fileName, false);
-  // auto members = std::vector<NewArchiveMember>();
-  // if (writer) {
-  //   members.push_back(std::move(*writer));
-  // }
-  // auto result =
-  //     writeArchive("testx", members, false,
-  //                  object::Archive::getDefaultKindForHost(), true, false);
-  // if (!result) {
-  //   // outs() << toString(std::move(result)) << "\n";
-  // }
 }
 
 KModule::~KModule() {

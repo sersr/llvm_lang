@@ -44,7 +44,7 @@ void destory(KModuleRef module) {
 
 void kModuleInit(KModuleRef module) { unwrap(module)->init(); }
 
-void writeOutput(KModuleRef module) { unwrap(module)->writeOutput(); }
+void writeOutput(KModuleRef module, int index, char* name) { unwrap(module)->writeOutput(index,name); }
 
 LLVMModuleRef getModule(KModuleRef ref) {
   return wrap(unwrap(ref)->getModule());

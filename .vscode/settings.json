@@ -75,6 +75,7 @@
         "utility": "cpp",
         "*.def": "cpp",
         "iostream": "cpp",
-        "fstream": "cpp"
+        "fstream": "cpp",
+        "*.inc": "cpp"
     }
 }

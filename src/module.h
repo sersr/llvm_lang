@@ -32,7 +32,7 @@ public:
   KModule(Module * module,  legacy::FunctionPassManager* fpm);
 
   void init();
-  void writeOutput();
+  void writeOutput(int index, char* name);
   ~KModule();
 private:
   Module* module;

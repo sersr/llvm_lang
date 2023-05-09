@@ -135,6 +135,8 @@
 
 int main() {
   LLVMModuleRef module = LLVMModuleCreateWithName("my_module");
+
+  utostr;
   
   LLVMTypeRef printf_arg_types[] = { LLVMPointerType(LLVMInt8Type(), 0) };
   LLVMTypeRef printf_type = LLVMFunctionType(LLVMInt32Type(), printf_arg_types, 1, 1);

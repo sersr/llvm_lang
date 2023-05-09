@@ -32,7 +32,7 @@ LLVMValueRef getOrInsertFunction(const char *name, LLVMModuleRef module,
 
 KModuleRef createKModule(char *name);
 void kModuleInit(KModuleRef module);
-void writeOutput(KModuleRef module);
+void writeOutput(KModuleRef module, int index, char* name);
 LLVMModuleRef getModule(KModuleRef ref);
 LLVMContextRef getLLVMContext(KModuleRef ref);
 LLVMPassManagerRef getFPM(KModuleRef ref);

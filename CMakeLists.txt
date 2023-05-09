@@ -5,7 +5,7 @@ project(llvm_wrapper)
 if(WIN32)
     set(CMAKE_CXX_FLAGS "/std:c++17")
 else()
-    set(CMAKE_CXX_FLAGS "-std=c++17 -Wl,-force_load,/usr/local/lib/libLLVMTarget.a,/usr/local/lib/libLLVMDebuginfod.a,/usr/local/lib/libLLVMCore.a -Wl,-L/usr/local/lib")
+    set(CMAKE_CXX_FLAGS "-std=c++2a -Wl,-force_load,/usr/local/lib/libLLVMTarget.a,/usr/local/lib/libLLVMDebuginfod.a,/usr/local/lib/libLLVMCore.a -Wl,-L/usr/local/lib")
 endif()
 
 find_package(LLVM REQUIRED)
