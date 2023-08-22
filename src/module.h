@@ -1,7 +1,6 @@
 #ifndef K_MODULE_H
 #define K_MODULE_H
 
-#include "llvm-c/Core.h"
 #include "llvm/IR/LLVMContext.h"
 #include "llvm/IR/Module.h"
 #include "llvm/Target/TargetMachine.h"
@@ -20,9 +19,14 @@
 #include "llvm/Transforms/Scalar/GVN.h"
 #include "llvm/Transforms/Utils.h"
 
+#include "type.h"
+
 #include <vector>
 
 using namespace llvm;
+
+
+
 class KModule {
 public:
   Module *getModule() const { return module; }
@@ -39,4 +43,8 @@ private:
   TargetMachine *targetMachine;
   legacy::FunctionPassManager* FPM;
 };
+
+DEFINE_SIMPLE_CONVERSION_FUNCTIONS(KModule, KModuleRef)
+
+KModule * getM(KModuleRef ref);
 #endif

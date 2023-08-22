@@ -1,8 +1,8 @@
 
 #include "module.h"
-KModule::KModule(  Module* module,   legacy::FunctionPassManager* fpm):module(module), FPM(std::move(fpm)) {
+KModule::KModule(Module *module, legacy::FunctionPassManager *fpm)
+    : module(module), FPM(std::move(fpm)) {}
 
-}
 void KModule::init() {
 
   auto TargetTriple = sys::getDefaultTargetTriple();
@@ -15,6 +15,7 @@ void KModule::init() {
 
   std::string Error;
   auto Target = TargetRegistry::lookupTarget(TargetTriple, Error);
+
   TargetOptions opt;
 
   auto RM = std::optional<Reloc::Model>();
@@ -24,10 +25,11 @@ void KModule::init() {
   targetMachine =
       Target->createTargetMachine(TargetTriple, CPU, Features, opt, RM);
 
+  module->setTargetTriple(Target->getName());
   module->setDataLayout(targetMachine->createDataLayout());
 }
 
-void KModule::writeOutput(int index, char* name) {
+void KModule::writeOutput(int index, char *name) {
   auto fileName = name;
   std::error_code EC;
   raw_fd_ostream fd(fileName, EC, (sys::fs::OpenFlags)0);
@@ -36,7 +38,7 @@ void KModule::writeOutput(int index, char* name) {
     return;
   }
   legacy::PassManager ff;
-  auto FileType =static_cast<CodeGenFileType>(index);
+  auto FileType = static_cast<CodeGenFileType>(index);
   if (getTargetMachine()->addPassesToEmitFile(ff, fd, nullptr, FileType)) {
     errs() << "TheTargetMachine can't emit a file of this type";
     return;
@@ -46,6 +48,6 @@ void KModule::writeOutput(int index, char* name) {
   fd.flush();
 }
 
-KModule::~KModule() {
-  delete module;
-}
+KModule::~KModule() { delete module; }
+
+KModule *getM(KModuleRef ref) { return unwrap(ref); }

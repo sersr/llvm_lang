@@ -76,6 +76,15 @@
         "*.def": "cpp",
         "iostream": "cpp",
         "fstream": "cpp",
-        "*.inc": "cpp"
+        "*.inc": "cpp",
+        "__verbose_abort": "cpp",
+        "charconv": "cpp",
+        "condition_variable": "cpp",
+        "iomanip": "cpp",
+        "numbers": "cpp",
+        "semaphore": "cpp",
+        "shared_mutex": "cpp",
+        "span": "cpp",
+        "thread": "cpp"
     }
 }

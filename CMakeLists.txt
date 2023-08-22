@@ -5,22 +5,14 @@ project(llvm_wrapper)
 if(WIN32)
     set(CMAKE_CXX_FLAGS "/std:c++17")
 else()
-    set(CMAKE_CXX_FLAGS "-std=c++2a -Wl,-force_load,/usr/local/lib/libLLVMTarget.a,/usr/local/lib/libLLVMDebuginfod.a,/usr/local/lib/libLLVMCore.a -Wl,-L/usr/local/lib")
+    set(CMAKE_CXX_FLAGS "-std=c++2a")
 endif()
 
 find_package(LLVM REQUIRED)
 
-set(LLVM_LIBS_C ${LLVM_AVAILABLE_LIBS})
-
-# 不需要，编译错误
-list(REMOVE_ITEM LLVM_LIBS_C LLVMLineEditor)
-
-# 下面两个是动态库，不需要，已经有静态库了
-list(REMOVE_ITEM LLVM_LIBS_C LTO)
-list(REMOVE_ITEM LLVM_LIBS_C Remarks)
-
 include_directories(${LLVM_INCLUDE_DIRS})
-link_libraries(${LLVM_LIBS_C})
+
+link_libraries(LLVM)
 
 add_executable(
     main
