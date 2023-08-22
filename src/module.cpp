@@ -25,7 +25,7 @@ void KModule::init() {
   targetMachine =
       Target->createTargetMachine(TargetTriple, CPU, Features, opt, RM);
 
-  module->setTargetTriple(Target->getName());
+  module->setTargetTriple(TargetTriple);
   module->setDataLayout(targetMachine->createDataLayout());
 }
 
