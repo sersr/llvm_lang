@@ -25,26 +25,26 @@
 
 using namespace llvm;
 
-
-
 class KModule {
 public:
   Module *getModule() const { return module; }
   LLVMContext *getContext() const { return &module->getContext(); }
   TargetMachine *getTargetMachine() const { return targetMachine; }
-  legacy::FunctionPassManager *getFPM() const {return FPM;};
-  KModule(Module * module,  legacy::FunctionPassManager* fpm);
+  legacy::FunctionPassManager *getFPM() const { return FPM; };
+  KModule(Module *module, legacy::FunctionPassManager *fpm);
 
   void init();
-  void writeOutput(int index, char* name);
+  void writeOutput(int index, char *name);
+  void initTargetMachine();
   ~KModule();
+
 private:
-  Module* module;
+  Module *module;
   TargetMachine *targetMachine;
-  legacy::FunctionPassManager* FPM;
+  legacy::FunctionPassManager *FPM;
 };
 
 DEFINE_SIMPLE_CONVERSION_FUNCTIONS(KModule, KModuleRef)
 
-KModule * getM(KModuleRef ref);
+KModule *getM(KModuleRef ref);
 #endif

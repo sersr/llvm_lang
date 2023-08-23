@@ -2,7 +2,12 @@
 #include "llvm_wrapper.h"
 #include "module.h"
 #include <functional>
+#include <llvm-c/IRReader.h>
 #include <llvm/IR/DIBuilder.h>
+#include <llvm/IRReader/IRReader.h>
+
+#include <llvm/Analysis/TargetLibraryInfo.h>
+#include <llvm/Support/SourceMgr.h>
 
 #include <llvm-c/DebugInfo.h>
 #include <vector>
@@ -60,17 +65,22 @@ LLVMAttributeRef LLVMCreateStructRetAttr(LLVMContextRef C, LLVMTypeRef Ty) {
   return wrap(Attribute::getWithStructRetType(*unwrap(C), unwrap(Ty)));
 }
 
-void LLVMDIBuilderCreateType(LLVMDIBuilderRef builder, LLVMMetadataRef scope) {
-  unwrap(builder);
-}
-
 LLVMMetadataRef LLVMCreateCompileUnit(LLVMDIBuilderRef builder, char *fileName,
                                       char *dirName) {
   auto dBuilder = unwrap(builder);
   auto file = dBuilder->createFile(fileName, dirName);
   auto unit =
-      dBuilder->createCompileUnit(dwarf::DW_LANG_C, file, "", false, "", 0);
+      dBuilder->createCompileUnit(dwarf::DW_LANG_C11, file, "", false, "", 0);
 
   return wrap(unit);
 }
 
+void LLVMIRReader(LLVMContextRef context, char *name, char *outName) {
+  SMDiagnostic e;
+  auto module = llvm::parseIRFile(name, e, *unwrap(context)).release();
+  auto FPM = new legacy::FunctionPassManager(module);
+
+  auto kModule = KModule(module, FPM);
+  kModule.init();
+  kModule.writeOutput(1, outName);
+}

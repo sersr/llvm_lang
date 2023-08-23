@@ -37,6 +37,8 @@ LLVMAttributeRef LLVMCreateStructRetAttr(LLVMContextRef C, LLVMTypeRef Ty);
 
 LLVMMetadataRef LLVMCreateCompileUnit(LLVMDIBuilderRef builder, char *fileName,
                                       char *dirName);
+
+void LLVMIRReader(LLVMContextRef context, char *name, char *outName);
 EXPORTEND
 
 #endif
