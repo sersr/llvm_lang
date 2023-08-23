@@ -19,11 +19,11 @@
 #include "llvm/Transforms/Scalar/GVN.h"
 #include "llvm/Transforms/Utils.h"
 
-#include "type.h"
-
 #include <vector>
 
 using namespace llvm;
+
+typedef struct KOpaqueModule *KModuleRef;
 
 class KModule {
 public:

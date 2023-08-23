@@ -7,7 +7,6 @@ KModule::KModule(Module *module, legacy::FunctionPassManager *fpm)
     : module(module), FPM(std::move(fpm)) {}
 
 void KModule::init() {
-
   auto TargetTriple = "arm64-apple-macosx14.0.0";
   // sys::getDefaultTargetTriple();
   module->setTargetTriple(TargetTriple);
