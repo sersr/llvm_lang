@@ -13,20 +13,22 @@
 #define LLVM_TARGET(TargetName) void LLVMInitialize##TargetName##Target();
 #include "llvm/Config/Targets.def"
 
-  // Declare all of the target-MC-initialization functions that are available.
+// Declare all of the target-MC-initialization functions that are available.
 #define LLVM_TARGET(TargetName) void LLVMInitialize##TargetName##TargetMC();
 #include "llvm/Config/Targets.def"
 
-  // Declare all of the available assembly printer initialization functions.
-#define LLVM_ASM_PRINTER(TargetName) void LLVMInitialize##TargetName##AsmPrinter();
+// Declare all of the available assembly printer initialization functions.
+#define LLVM_ASM_PRINTER(TargetName)                                           \
+  void LLVMInitialize##TargetName##AsmPrinter();
 #include "llvm/Config/AsmPrinters.def"
 
-  // Declare all of the available assembly parser initialization functions.
-#define LLVM_ASM_PARSER(TargetName) void LLVMInitialize##TargetName##AsmParser();
+// Declare all of the available assembly parser initialization functions.
+#define LLVM_ASM_PARSER(TargetName)                                            \
+  void LLVMInitialize##TargetName##AsmParser();
 #include "llvm/Config/AsmParsers.def"
 
-  // Declare all of the available disassembler initialization functions.
-#define LLVM_DISASSEMBLER(TargetName) \
+// Declare all of the available disassembler initialization functions.
+#define LLVM_DISASSEMBLER(TargetName)                                          \
   void LLVMInitialize##TargetName##Disassembler();
 #include "llvm/Config/Disassemblers.def"
 
@@ -34,18 +36,16 @@
 #define LLVM_TARGETMCA(TargetName) void LLVMInitialize##TargetName##TargetMCA();
 #include "llvm/Config/TargetMCAs.def"
 
-
 #endif
 
 #define EXPORT
 #define EXPORTEND
 #endif
 
-typedef enum  {
+typedef enum {
 #define GET_ATTR_ENUM(ENUM_NAME, DISPLAY_NAME)
 #include "llvm/IR/Attributes.inc"
 } LLVMAttr;
-
 
 #include "llvm-c/Core.h"
 #include "llvm/IR/BasicBlock.h"
