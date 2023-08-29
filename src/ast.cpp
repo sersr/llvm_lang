@@ -43,6 +43,5 @@ Value *FunctionAst::codegen(KModule &module) {
   builder.CreateRet(ret);
   // builder.CreateRetVoid();
   verifyFunction(*function, &errs());
-  module.getFPM()->run(*function);
   return function;
 }

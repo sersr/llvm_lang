@@ -70,7 +70,6 @@ void kModuleInit(KModuleRef module);
 void writeOutput(KModuleRef module, int index, char *name);
 LLVMModuleRef getModule(KModuleRef ref);
 LLVMContextRef getLLVMContext(KModuleRef ref);
-LLVMPassManagerRef getFPM(KModuleRef ref);
 
 LLVMAttributeRef LLVMCreateStructRetAttr(LLVMContextRef C, LLVMTypeRef Ty);
 
@@ -78,6 +77,12 @@ LLVMMetadataRef LLVMCreateCompileUnit(LLVMDIBuilderRef builder, char *fileName,
                                       char *dirName);
 
 void LLVMIRReader(LLVMContextRef context, char *name, char *outName);
+
+void optimize(KModuleRef kModule, LLVMRustPassBuilderOptLevel OptLevelRust,
+              LLVMRustOptStage OptStage, bool NoPrepopulatePasses,
+              bool VerifyIR, bool UseThinLTOBuffers, bool MergeFunctions,
+              bool UnrollLoops, bool SLPVectorize, bool LoopVectorize,
+              bool DisableSimplifyLibCalls);
 EXPORTEND
 
 #endif

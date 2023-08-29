@@ -10,7 +10,8 @@
 #include <llvm/Support/SourceMgr.h>
 
 #include <llvm-c/DebugInfo.h>
-#include <vector>
+
+#include "llvm/Support/TargetSelect.h"
 
 void initLLVM() {
   InitializeAllTargets();
@@ -30,10 +31,8 @@ LLVMValueRef getOrInsertFunction(const char *name, LLVMModuleRef module,
 KModuleRef createKModule(char *name) {
   auto context = new LLVMContext();
   auto m = new Module(name, *context);
-  auto FPM = new legacy::FunctionPassManager(m);
-  auto module = new KModule(m, FPM);
+  auto module = new KModule(m);
   module->init();
-  FPM->add(createPromoteMemoryToRegisterPass());
 
   return reinterpret_cast<KModuleRef>(module);
 }
@@ -57,10 +56,6 @@ LLVMContextRef getLLVMContext(KModuleRef ref) {
   return wrap(unwrap(ref)->getContext());
 }
 
-LLVMPassManagerRef getFPM(KModuleRef ref) {
-  return wrap(unwrap(ref)->getFPM());
-}
-
 LLVMAttributeRef LLVMCreateStructRetAttr(LLVMContextRef C, LLVMTypeRef Ty) {
   return wrap(Attribute::getWithStructRetType(*unwrap(C), unwrap(Ty)));
 }
@@ -78,9 +73,18 @@ LLVMMetadataRef LLVMCreateCompileUnit(LLVMDIBuilderRef builder, char *fileName,
 void LLVMIRReader(LLVMContextRef context, char *name, char *outName) {
   SMDiagnostic e;
   auto module = llvm::parseIRFile(name, e, *unwrap(context)).release();
-  auto FPM = new legacy::FunctionPassManager(module);
-
-  auto kModule = KModule(module, FPM);
+  auto kModule = KModule(module);
   kModule.init();
   kModule.writeOutput(1, outName);
+}
+
+void optimize(KModuleRef kModule, LLVMRustPassBuilderOptLevel OptLevelRust,
+              LLVMRustOptStage OptStage, bool NoPrepopulatePasses,
+              bool VerifyIR, bool UseThinLTOBuffers, bool MergeFunctions,
+              bool UnrollLoops, bool SLPVectorize, bool LoopVectorize,
+              bool DisableSimplifyLibCalls) {
+  unwrap(kModule)->optimize(OptLevelRust, OptStage, NoPrepopulatePasses,
+                            VerifyIR, UseThinLTOBuffers, MergeFunctions,
+                            UnrollLoops, SLPVectorize, LoopVectorize,
+                            DisableSimplifyLibCalls);
 }
