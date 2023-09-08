@@ -1,6 +1,5 @@
 
 #include "llvm_wrapper.h"
-#include "module.h"
 #include <functional>
 #include <llvm-c/IRReader.h>
 #include <llvm/IR/DIBuilder.h>
