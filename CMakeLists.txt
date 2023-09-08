@@ -17,14 +17,11 @@ link_libraries(LLVM)
 add_executable(
     main
     "src/main.cpp"
-    "src/module.cpp"
-    "src/ast.cpp"
     "src/llvm_wrapper.cpp"
 )
 
 add_library(${PROJECT_NAME} SHARED
     "src/llvm_wrapper.cpp"
-    "src/module.cpp"
 )
 
 set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_SOURCE_DIR}/install")

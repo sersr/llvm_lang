@@ -1,6 +1,44 @@
 #ifndef LLVM_WRAPPER_H
 #define LLVM_WRAPPER_H
 
+#include "llvm/Analysis/AliasAnalysis.h"
+#include "llvm/IR/AutoUpgrade.h"
+#include "llvm/IR/Instructions.h"
+#include "llvm/IR/LLVMContext.h"
+#include "llvm/IR/LegacyPassManager.h"
+#include "llvm/IR/Module.h"
+#include "llvm/IR/Verifier.h"
+#include "llvm/MC/TargetRegistry.h"
+#include "llvm/Object/ArchiveWriter.h"
+#include "llvm/Passes/PassPlugin.h"
+#include "llvm/Target/TargetMachine.h"
+#include "llvm/TargetParser/Host.h"
+#include <llvm/Analysis/TargetLibraryInfo.h>
+#include <llvm/Config/llvm-config.h>
+#include <llvm/Passes/OptimizationLevel.h>
+#include <llvm/Passes/PassBuilder.h>
+#include <llvm/Passes/StandardInstrumentations.h>
+#include <llvm/Support/PGOOptions.h>
+#include <llvm/Support/VirtualFileSystem.h>
+
+/// Transform
+#include "llvm/Transforms/InstCombine/InstCombine.h"
+#include "llvm/Transforms/Instrumentation.h"
+#include "llvm/Transforms/Instrumentation/AddressSanitizer.h"
+#include "llvm/Transforms/Instrumentation/GCOVProfiler.h"
+#include "llvm/Transforms/Instrumentation/HWAddressSanitizer.h"
+#include "llvm/Transforms/Instrumentation/InstrProfiling.h"
+#include "llvm/Transforms/Instrumentation/MemorySanitizer.h"
+#include "llvm/Transforms/Instrumentation/ThreadSanitizer.h"
+#include "llvm/Transforms/Scalar.h"
+#include "llvm/Transforms/Scalar/GVN.h"
+#include "llvm/Transforms/Utils.h"
+#include "llvm/Transforms/Utils/CanonicalizeAliases.h"
+#include "llvm/Transforms/Utils/NameAnonGlobals.h"
+#include <llvm/Transforms/IPO/LowerTypeTests.h>
+
+#include <llvm-c/TargetMachine.h>
+
 #ifdef __cplusplus
 #define EXPORT extern "C" {
 #define EXPORTEND }
@@ -51,38 +89,64 @@ typedef enum {
 #include "llvm/IR/BasicBlock.h"
 #include "llvm/IR/IRBuilder.h"
 #include "llvm/IR/LLVMContext.h"
-#include "llvm/IR/Module.h"
+// #include "llvm/IR/Module.h"
 
 using namespace llvm;
+DEFINE_STDCXX_CONVERSION_FUNCTIONS(TargetMachine, LLVMTargetMachineRef)
+DEFINE_STDCXX_CONVERSION_FUNCTIONS(Target, LLVMTargetRef)
 
-#include "module.h"
+// #include "module.h"
+
+enum LLVMRustPassBuilderOptLevel {
+  O0,
+  O1,
+  O2,
+  O3,
+  Os,
+  Oz,
+};
+enum LLVMRustOptStage {
+  PreLinkNoLTO,
+  PreLinkThinLTO,
+  PreLinkFatLTO,
+  ThinLTO,
+  FatLTO,
+};
+typedef struct {
+  bool SanitizeAddress;
+  bool SanitizeAddressRecover;
+  bool SanitizeMemory;
+  bool SanitizeMemoryRecover;
+  int SanitizeMemoryTrackOrigins;
+  bool SanitizeThread;
+  bool SanitizeHWAddress;
+  bool SanitizeHWAddressRecover;
+  bool SanitizeKernelAddress;
+  bool SanitizeKernelAddressRecover;
+  bool SanitizeCFI;
+} LLVMRustSanitizerOptions;
 
 EXPORT
 
 void initLLVM();
-void destory(KModuleRef module);
 
 LLVMValueRef getOrInsertFunction(const char *name, LLVMModuleRef module,
                                  LLVMTypeRef functionTy);
 
-KModuleRef createKModule(char *name);
-void kModuleInit(KModuleRef module);
-void writeOutput(KModuleRef module, int index, char *name);
-LLVMModuleRef getModule(KModuleRef ref);
-LLVMContextRef getLLVMContext(KModuleRef ref);
-
-LLVMAttributeRef LLVMCreateStructRetAttr(LLVMContextRef C, LLVMTypeRef Ty);
-
 LLVMMetadataRef LLVMCreateCompileUnit(LLVMDIBuilderRef builder, char *fileName,
                                       char *dirName);
 
-void LLVMIRReader(LLVMContextRef context, char *name, char *outName);
+LLVMTargetMachineRef createTarget(LLVMModuleRef M, char *tripleStr);
 
-void optimize(KModuleRef kModule, LLVMRustPassBuilderOptLevel OptLevelRust,
+void optimize(LLVMModuleRef M, LLVMTargetMachineRef target,
+              LLVMRustPassBuilderOptLevel OptLevelRust,
               LLVMRustOptStage OptStage, bool NoPrepopulatePasses,
               bool VerifyIR, bool UseThinLTOBuffers, bool MergeFunctions,
               bool UnrollLoops, bool SLPVectorize, bool LoopVectorize,
               bool DisableSimplifyLibCalls);
+
+void writeOutput(LLVMModuleRef M, LLVMTargetMachineRef target, int index,
+                 char *name);
 EXPORTEND
 
 #endif
