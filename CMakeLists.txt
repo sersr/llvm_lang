@@ -10,7 +10,7 @@ if(WIN32)
 else()
     find_package(LLVM REQUIRED)
     set(CMAKE_CXX_FLAGS "-std=c++2a")
-    link_directories(LLVM)
+    link_libraries(LLVM)
 endif()
 
 include_directories(${LLVM_INCLUDE_DIRS})
