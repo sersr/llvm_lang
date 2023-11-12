@@ -17,6 +17,7 @@ void initLLVM() {
   InitializeAllTargetMCs();
   InitializeAllAsmParsers();
   InitializeAllAsmPrinters();
+  InitializeAllTargetInfos();
 }
 
 LLVMValueRef getOrInsertFunction(const char *name, LLVMModuleRef module,
@@ -45,7 +46,9 @@ LLVMTargetMachineRef createTarget(LLVMModuleRef M, char *tripleStr) {
   std::string Error;
   const llvm::Target *Target =
       TargetRegistry::lookupTarget(TargetTriple.getTriple(), Error);
+
   if (Target == nullptr) {
+    errs() << "error\n" << Error;
     return nullptr;
   }
 
@@ -54,10 +57,15 @@ LLVMTargetMachineRef createTarget(LLVMModuleRef M, char *tripleStr) {
   auto CPU = "";
   auto Features = "";
 
+  auto RM = std::optional<Reloc::Model>();
+
   auto targetMachine =
       Target->createTargetMachine(TargetTriple.getTriple(), CPU, Features, opt,
-                                  Reloc::PIC_, module->getCodeModel());
+                              RM);
 
+  auto dataLayout = targetMachine->createDataLayout();
+
+  module->setDataLayout(dataLayout);
   return wrap(targetMachine);
 }
 
