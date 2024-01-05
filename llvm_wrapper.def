@@ -133,3 +133,9 @@ EXPORTS
    LLVMDumpModule
    LLVMPrintModuleToFile
    LLVMTargetMachineEmitToFile
+   optimize
+   LLVMRunFunctionPassManager
+   LLVMCreateFunctionPassManagerForModule
+   LLVMInitializeFunctionPassManager
+   LLVMBuildPtrToInt
+   LLVMBuildIntToPtr
