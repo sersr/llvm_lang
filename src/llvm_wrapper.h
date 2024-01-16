@@ -145,6 +145,8 @@ void optimize(LLVMModuleRef M, LLVMTargetMachineRef target,
               bool UnrollLoops, bool SLPVectorize, bool LoopVectorize,
               bool DisableSimplifyLibCalls);
 
+ void LLVMAddFlag(LLVMModuleRef M, int MergeBehavior,
+                                      const char *Name, uint32_t Value);
 void writeOutput(LLVMModuleRef M, LLVMTargetMachineRef target, int index,
                  char *name);
 EXPORTEND

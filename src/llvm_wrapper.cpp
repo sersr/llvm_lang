@@ -15,8 +15,8 @@
 void initLLVM() {
   InitializeAllTargets();
   InitializeAllTargetMCs();
-  InitializeAllAsmParsers();
   InitializeAllAsmPrinters();
+  InitializeAllAsmParsers();
   InitializeAllTargetInfos();
 }
 
@@ -33,7 +33,7 @@ LLVMMetadataRef LLVMCreateCompileUnit(LLVMDIBuilderRef builder, char *fileName,
   auto dBuilder = unwrap(builder);
   auto file = dBuilder->createFile(fileName, dirName);
   auto unit =
-      dBuilder->createCompileUnit(dwarf::DW_LANG_C11, file, "", false, "", 0);
+      dBuilder->createCompileUnit(dwarf::DW_LANG_C11, file, "", false, "", 0,"", DICompileUnit::FullDebug,0,false);
 
   return wrap(unit);
 }
@@ -59,14 +59,19 @@ LLVMTargetMachineRef createTarget(LLVMModuleRef M, char *tripleStr) {
 
   auto RM = std::optional<Reloc::Model>();
 
-  auto targetMachine =
-      Target->createTargetMachine(TargetTriple.getTriple(), CPU, Features, opt,
-                              RM);
+  auto targetMachine = Target->createTargetMachine(TargetTriple.getTriple(),
+                                                   CPU, Features, opt, RM);
 
   auto dataLayout = targetMachine->createDataLayout();
 
   module->setDataLayout(dataLayout);
   return wrap(targetMachine);
+}
+
+void LLVMAddFlag(LLVMModuleRef M,
+                           int MergeBehavior,
+                           const char *Name, uint32_t Value) {
+  unwrap(M)->addModuleFlag(static_cast<Module::ModFlagBehavior>(MergeBehavior), Name, Value);
 }
 
 void writeOutput(LLVMModuleRef M, LLVMTargetMachineRef target, int index,
@@ -82,13 +87,14 @@ void writeOutput(LLVMModuleRef M, LLVMTargetMachineRef target, int index,
     return;
   }
   legacy::PassManager ff;
+  LLVMAddAnalysisPasses(target, wrap(&ff));
 
   TargetLibraryInfoImpl TLII(Triple(module->getTargetTriple()));
 
   ff.add(new TargetLibraryInfoWrapperPass(TLII));
 
   auto FileType = static_cast<CodeGenFileType>(index);
-  if (targetMachine->addPassesToEmitFile(ff, fd, nullptr, FileType, true)) {
+  if (targetMachine->addPassesToEmitFile(ff, fd, nullptr, FileType, false)) {
     errs() << "TheTargetMachine can't emit a file of this type";
     return;
   }

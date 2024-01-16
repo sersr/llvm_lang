@@ -149,3 +149,5 @@ EXPORTS
   LLVMCreateFunctionPassManagerForModule
   LLVMInitializeFunctionPassManager
   LLVMDumpValue
+  LLVMAddFlag
+  LLVMCreateStringAttribute
