@@ -4,18 +4,18 @@ project(llvm_wrapper)
 
 find_package(LLVM CONFIG REQUIRED)
 
-if(WIN32)
+if(WIN32 AND MSVC)
     set(CMAKE_CXX_FLAGS "/std:c++17")
     set(llvm_libs ${LLVM_AVAILABLE_LIBS})
     list(REMOVE_ITEM llvm_libs "LLVM-C")
     link_libraries(${llvm_libs})
 else()
-    find_package(LLVM REQUIRED)
-    set(CMAKE_CXX_FLAGS "-std=c++2a")
     link_libraries(LLVM)
 endif()
 
-include_directories(${LLVM_INCLUDE_DIRS})
+if(DEFINED VCPKG_INSTALLED_DIR)
+    include_directories(${LLVM_INCLUDE_DIRS})
+endif()
 
 if(WIN32)
     add_library(${PROJECT_NAME} SHARED
@@ -28,7 +28,9 @@ else()
     )
 endif()
 
+set(CMAKE_SHARED_LIBRARY_PREFIX "")
 set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_SOURCE_DIR}/install")
+
 install(TARGETS
     ${PROJECT_NAME}
 )
