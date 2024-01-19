@@ -17,12 +17,6 @@ endif()
 
 include_directories(${LLVM_INCLUDE_DIRS})
 
-add_executable(
-    main
-    "src/main.cpp"
-    "src/llvm_wrapper.cpp"
-)
-
 if(WIN32)
     add_library(${PROJECT_NAME} SHARED
         "src/llvm_wrapper.cpp"
