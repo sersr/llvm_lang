@@ -11,11 +11,10 @@ if(WIN32 AND MSVC)
     link_libraries(${llvm_libs})
 else()
     link_libraries(LLVM)
+    set(CMAKE_CXX_FLAGS "--std=c++17")
 endif()
 
-if(DEFINED VCPKG_INSTALLED_DIR)
-    include_directories(${LLVM_INCLUDE_DIRS})
-endif()
+include_directories(${LLVM_INCLUDE_DIRS})
 
 if(WIN32)
     add_library(${PROJECT_NAME} SHARED

@@ -262,7 +262,7 @@ void optimize(LLVMModuleRef M, LLVMTargetMachineRef target,
           if (InstrProfileOutput) {
             Options.InstrProfileOutput = InstrProfileOutput;
           }
-          MPM.addPass(InstrProfiling(Options, false));
+          MPM.addPass(InstrProfilingLoweringPass(Options, false));
         });
   }
 
