@@ -33,12 +33,14 @@ LLVMMetadataRef LLVMCreateCompileUnit(LLVMDIBuilderRef builder, char *fileName,
   auto dBuilder = unwrap(builder);
   auto file = dBuilder->createFile(fileName, dirName);
   auto unit =
-      dBuilder->createCompileUnit(dwarf::DW_LANG_C11, file, "", false, "", 0,"", DICompileUnit::FullDebug,0,false);
+      dBuilder->createCompileUnit(dwarf::DW_LANG_C11, file, "", false, "", 0,
+                                  "", DICompileUnit::FullDebug, 0, false);
 
   return wrap(unit);
 }
 
 LLVMTargetMachineRef createTarget(LLVMModuleRef M, char *tripleStr) {
+  AlwaysInline;
   Triple TargetTriple(Triple::normalize(tripleStr));
   auto module = unwrap(M);
   module->setTargetTriple(TargetTriple.getTriple());
@@ -68,10 +70,10 @@ LLVMTargetMachineRef createTarget(LLVMModuleRef M, char *tripleStr) {
   return wrap(targetMachine);
 }
 
-void LLVMAddFlag(LLVMModuleRef M,
-                           int MergeBehavior,
-                           const char *Name, uint32_t Value) {
-  unwrap(M)->addModuleFlag(static_cast<Module::ModFlagBehavior>(MergeBehavior), Name, Value);
+void LLVMAddFlag(LLVMModuleRef M, int MergeBehavior, const char *Name,
+                 uint32_t Value) {
+  unwrap(M)->addModuleFlag(static_cast<Module::ModFlagBehavior>(MergeBehavior),
+                           Name, Value);
 }
 
 void writeOutput(LLVMModuleRef M, LLVMTargetMachineRef target, int index,
@@ -196,10 +198,14 @@ void optimize(LLVMModuleRef M, LLVMTargetMachineRef target,
 
   if (pGAction.has_value()) {
     PGOOpt = PGOOptions(path, "", "",
+
 #if LLVM_VERSION_GE(17, 0)
                         "", FS,
 #endif
                         pGAction.value(), PGOOptions::NoCSAction,
+#if LLVM_VERSION_GE(19, 0)
+                        PGOOptions::ColdFuncOpt::Default,
+#endif
                         DebugInfoForProfiling);
   }
 
@@ -228,7 +234,8 @@ void optimize(LLVMModuleRef M, LLVMTargetMachineRef target,
   // the PassBuilder does not create a pipeline.
   std::vector<std::function<void(ModulePassManager &, OptimizationLevel)>>
       PipelineStartEPCallbacks;
-  std::vector<std::function<void(ModulePassManager &, OptimizationLevel)>>
+  std::vector<std::function<void(ModulePassManager &, OptimizationLevel,
+                                 ThinOrFullLTOPhase)>>
       OptimizerLastEPCallbacks;
 
   if (SanitizerOptions && SanitizerOptions->SanitizeCFI &&
@@ -237,7 +244,8 @@ void optimize(LLVMModuleRef M, LLVMTargetMachineRef target,
         [](ModulePassManager &MPM, OptimizationLevel Level) {
           MPM.addPass(LowerTypeTestsPass(/*ExportSummary=*/nullptr,
                                          /*ImportSummary=*/nullptr,
-                                         /*DropTypeTests=*/false));
+                                         /*DropTypeTests=*/
+                                         lowertypetests::DropTestKind::None));
         });
   }
 
@@ -273,15 +281,17 @@ void optimize(LLVMModuleRef M, LLVMTargetMachineRef target,
           SanitizerOptions->SanitizeMemoryRecover,
           /*CompileKernel=*/false,
           /*EagerChecks=*/true);
-      OptimizerLastEPCallbacks.push_back(
-          [Options](ModulePassManager &MPM, OptimizationLevel Level) {
-            MPM.addPass(MemorySanitizerPass(Options));
-          });
+      OptimizerLastEPCallbacks.push_back([Options](ModulePassManager &MPM,
+                                                   OptimizationLevel Level,
+                                                   ThinOrFullLTOPhase phase) {
+        MPM.addPass(MemorySanitizerPass(Options));
+      });
     }
 
     if (SanitizerOptions->SanitizeThread) {
       OptimizerLastEPCallbacks.push_back([](ModulePassManager &MPM,
-                                            OptimizationLevel Level) {
+                                            OptimizationLevel Level,
+                                            ThinOrFullLTOPhase phase) {
         MPM.addPass(ModuleThreadSanitizerPass());
         MPM.addPass(createModuleToFunctionPassAdaptor(ThreadSanitizerPass()));
       });
@@ -290,7 +300,8 @@ void optimize(LLVMModuleRef M, LLVMTargetMachineRef target,
     if (SanitizerOptions->SanitizeAddress ||
         SanitizerOptions->SanitizeKernelAddress) {
       OptimizerLastEPCallbacks.push_back(
-          [SanitizerOptions](ModulePassManager &MPM, OptimizationLevel Level) {
+          [SanitizerOptions](ModulePassManager &MPM, OptimizationLevel Level,
+                             ThinOrFullLTOPhase phase) {
             auto CompileKernel = SanitizerOptions->SanitizeKernelAddress;
             AddressSanitizerOptions opts = AddressSanitizerOptions{
                 CompileKernel,
@@ -304,7 +315,8 @@ void optimize(LLVMModuleRef M, LLVMTargetMachineRef target,
     }
     if (SanitizerOptions->SanitizeHWAddress) {
       OptimizerLastEPCallbacks.push_back(
-          [SanitizerOptions](ModulePassManager &MPM, OptimizationLevel Level) {
+          [SanitizerOptions](ModulePassManager &MPM, OptimizationLevel Level,
+                             ThinOrFullLTOPhase phase) {
             HWAddressSanitizerOptions opts(
                 /*CompileKernel=*/false,
                 SanitizerOptions->SanitizeHWAddressRecover,
@@ -343,18 +355,18 @@ void optimize(LLVMModuleRef M, LLVMTargetMachineRef target,
         PB.registerOptimizerLastEPCallback(C);
 
       // Pass false as we manually schedule ThinLTOBufferPasses below.
-      MPM = PB.buildO0DefaultPipeline(OptLevel, /* PreLinkLTO */ false);
+      // MPM = PB.buildO0DefaultPipeline(OptLevel, /* PreLinkLTO */ false);
     } else {
       for (const auto &C : PipelineStartEPCallbacks)
         PB.registerPipelineStartEPCallback(C);
       if (OptStage != LLVMRustOptStage::PreLinkThinLTO) {
         for (const auto &C : OptimizerLastEPCallbacks)
-          PB.registerOptimizerLastEPCallback(C);
+        PB.registerOptimizerLastEPCallback(C);
       }
 
       switch (OptStage) {
       case LLVMRustOptStage::PreLinkNoLTO:
-        MPM = PB.buildPerModuleDefaultPipeline(OptLevel, DebugPassManager);
+        MPM = PB.buildPerModuleDefaultPipeline(OptLevel);
         break;
       case LLVMRustOptStage::PreLinkThinLTO:
         MPM = PB.buildThinLTOPreLinkDefaultPipeline(OptLevel);
@@ -367,7 +379,7 @@ void optimize(LLVMModuleRef M, LLVMTargetMachineRef target,
         if (OptimizerLastEPCallbacks.empty())
           NeedThinLTOBufferPasses = false;
         for (const auto &C : OptimizerLastEPCallbacks)
-          C(MPM, OptLevel);
+          C(MPM, OptLevel, ThinOrFullLTOPhase::None);
         break;
       case LLVMRustOptStage::PreLinkFatLTO:
         MPM = PB.buildLTOPreLinkDefaultPipeline(OptLevel);
@@ -389,7 +401,7 @@ void optimize(LLVMModuleRef M, LLVMTargetMachineRef target,
     for (const auto &C : PipelineStartEPCallbacks)
       C(MPM, OptLevel);
     for (const auto &C : OptimizerLastEPCallbacks)
-      C(MPM, OptLevel);
+      C(MPM, OptLevel, ThinOrFullLTOPhase::None);
   }
 
   if (ExtraPassesLen) {

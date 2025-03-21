@@ -1,273 +1,13 @@
 LIBRARY llvm_wrapper
 EXPORTS
-  LLVMBuildCall2
-  LLVMCreateEnumAttribute
-  LLVMAddCallSiteAttribute
-  LLVMBuildMemCpy
-  LLVMBuildLoad2
-  LLVMSetAlignment
-  LLVMAddFunction
-  LLVMSetLinkage
-  LLVMDIScopeGetFile
-  LLVMDIBuilderCreateSubroutineType
-  LLVMDIBuilderCreateFunction
-  LLVMSetSubprogram
-  LLVMGetParam
-  LLVMBuildInBoundsGEP2
-  LLVMDIBuilderCreateArrayType
-  LLVMDIBuilderCreateBasicType
-  LLVMBuildMemSet
-  LLVMBuildCondBr
-  LLVMConstNull
-  LLVMGetAlignment
-  LLVMBuildBitCast
-  LLVMBuildICmp
-  LLVMBuildSwitch
-  LLVMAddCase
-  LLVMBuildPtrToInt
-  LLVMBuildIntToPtr
-  LLVMBuildNot
-  LLVMTypeOf
-  LLVMGetTypeKind
-  LLVMBuildFNeg
-  LLVMBuildNeg
-  LLVMVoidTypeInContext
-  LLVMInt1TypeInContext
-  LLVMInt8TypeInContext
-  LLVMInt16TypeInContext
-  LLVMInt32TypeInContext
-  LLVMInt64TypeInContext
-  LLVMInt128TypeInContext
-  LLVMFloatTypeInContext
-  LLVMDoubleTypeInContext
-  LLVMArrayType
-  LLVMVectorType
-  LLVMFunctionType
-  LLVMStructTypeInContext
-  LLVMStructCreateNamed
-  LLVMStructSetBody
-  LLVMPointerTypeInContext
-  LLVMPointerType
   LLVMGetModuleDataLayout
-  LLVMPointerSize
-  LLVMABISizeOfType
-  LLVMABIAlignmentOfType
-  LLVMSetValueName
-  LLVMAddAttributeAtIndex
-  LLVMCreateTypeAttribute
-  LLVMCreateBuilderInContext
-  LLVMGetFirstBasicBlock
-  LLVMGetNextInstruction
-  LLVMPositionBuilder
-  LLVMGetFirstInstruction
-  LLVMSetCurrentDebugLocation2
-  LLVMBuildAlloca
-  LLVMDisposeBuilder
-  LLVMDIBuilderCreateParameterVariable
-  LLVMDIBuilderCreateExpression
-  LLVMDIBuilderCreateDebugLocation
-  LLVMGetInsertBlock
-  LLVMDIBuilderInsertDeclareAtEnd
-  LLVMBuildStore
-  LLVMConstInt
-  LLVMConstIntOfString
-  LLVMConstRealOfString
-  LLVMAddGlobal
-  LLVMSetGlobalConstant
-  LLVMSetInitializer
-  LLVMSetUnnamedAddress
-  LLVMConstStringInContext
-  LLVMConstArray
-  LLVMBuildArrayAlloca
-  LLVMBuildMalloc
-  LLVMBuildArrayMalloc
-  LLVMBuildCast
-  LLVMBuildIntCast2
-  LLVMBuildFPCast
-  LLVMBuildExtractValue
-  LLVMContextCreate
-  LLVMModuleCreateWithNameInContext
-  createTarget
-  LLVMGetDefaultTargetTriple
-  LLVMDisposeMessage
-  LLVMCreateTargetDataLayout
   LLVMSetModuleDataLayout
-  LLVMAddModuleFlag
-  LLVMValueAsMetadata
-  LLVMCreateDIBuilder
-  LLVMCreateCompileUnit
-  LLVMDIBuilderFinalize
-  LLVMDisposeDIBuilder
-  LLVMDisposeModule
-  LLVMDisposeTargetMachine
-  LLVMContextDispose
-  LLVMGetSubprogram
-  LLVMBuildRetVoid
-  LLVMBuildRet
-  LLVMBuildUnreachable
-  LLVMBuildIsNull
-  LLVMBuildIsNotNull
-  LLVMBuildFCmp
-  LLVMBuildFAdd
-  LLVMBuildFSub
-  LLVMBuildFMul
-  LLVMBuildFDiv
-  LLVMBuildFRem
-  LLVMBuildAnd
-  LLVMBuildOr
-  LLVMBuildXor
-  LLVMBuildAdd
-  LLVMBuildSub
-  LLVMBuildMul
-  LLVMBuildSDiv
-  LLVMBuildUDiv
-  LLVMBuildSRem
-  LLVMBuildURem
-  LLVMBuildShl
-  LLVMBuildAShr
-  LLVMBuildLShr
-  LLVMAppendBasicBlockInContext
-  LLVMPositionBuilderAtEnd
-  LLVMCreateBasicBlockInContext
-  LLVMAppendExistingBasicBlock
-  LLVMBuildBr
-  LLVMDIBuilderCreatePointerType
-  LLVMSetFunctionCallConv
-  LLVMBuildStructGEP2
-  LLVMDIBuilderCreateMemberType
-  LLVMDIBuilderCreateStructType
-  LLVMDIBuilderCreateGlobalVariableExpression
-  LLVMGlobalSetMetadata
-  LLVMGetMDKindID
-  writeOutput
-  initLLVM
-  optimize
-  LLVMDumpModule
-  LLVMPrintModuleToFile
-  LLVMTargetMachineEmitToFile
-  LLVMRunFunctionPassManager
-  LLVMCreateFunctionPassManagerForModule
-  LLVMInitializeFunctionPassManager
-  LLVMDumpValue
-  LLVMAddFlag
-  LLVMCreateStringAttribute
-  LLVMDumpType
-  LLVMInitializeAArch64TargetInfo
-  LLVMInitializeAMDGPUTargetInfo
-  LLVMInitializeARMTargetInfo
-  LLVMInitializeAVRTargetInfo
-  LLVMInitializeBPFTargetInfo
-  LLVMInitializeHexagonTargetInfo
-  LLVMInitializeLanaiTargetInfo
-  LLVMInitializeLoongArchTargetInfo
-  LLVMInitializeMipsTargetInfo
-  LLVMInitializeMSP430TargetInfo
-  LLVMInitializeNVPTXTargetInfo
-  LLVMInitializePowerPCTargetInfo
-  LLVMInitializeRISCVTargetInfo
-  LLVMInitializeSparcTargetInfo
-  LLVMInitializeSystemZTargetInfo
-  LLVMInitializeVETargetInfo
-  LLVMInitializeWebAssemblyTargetInfo
-  LLVMInitializeX86TargetInfo
-  LLVMInitializeXCoreTargetInfo
-  LLVMInitializeAArch64Target
-  LLVMInitializeAMDGPUTarget
-  LLVMInitializeARMTarget
-  LLVMInitializeAVRTarget
-  LLVMInitializeBPFTarget
-  LLVMInitializeHexagonTarget
-  LLVMInitializeLanaiTarget
-  LLVMInitializeLoongArchTarget
-  LLVMInitializeMipsTarget
-  LLVMInitializeMSP430Target
-  LLVMInitializeNVPTXTarget
-  LLVMInitializePowerPCTarget
-  LLVMInitializeRISCVTarget
-  LLVMInitializeSparcTarget
-  LLVMInitializeSystemZTarget
-  LLVMInitializeVETarget
-  LLVMInitializeWebAssemblyTarget
-  LLVMInitializeX86Target
-  LLVMInitializeXCoreTarget
-  LLVMInitializeAArch64TargetMC
-  LLVMInitializeAMDGPUTargetMC
-  LLVMInitializeARMTargetMC
-  LLVMInitializeAVRTargetMC
-  LLVMInitializeBPFTargetMC
-  LLVMInitializeHexagonTargetMC
-  LLVMInitializeLanaiTargetMC
-  LLVMInitializeLoongArchTargetMC
-  LLVMInitializeMipsTargetMC
-  LLVMInitializeMSP430TargetMC
-  LLVMInitializeNVPTXTargetMC
-  LLVMInitializePowerPCTargetMC
-  LLVMInitializeRISCVTargetMC
-  LLVMInitializeSparcTargetMC
-  LLVMInitializeSystemZTargetMC
-  LLVMInitializeVETargetMC
-  LLVMInitializeWebAssemblyTargetMC
-  LLVMInitializeX86TargetMC
-  LLVMInitializeXCoreTargetMC
-  LLVMInitializeAArch64AsmPrinter
-  LLVMInitializeAMDGPUAsmPrinter
-  LLVMInitializeARMAsmPrinter
-  LLVMInitializeAVRAsmPrinter
-  LLVMInitializeBPFAsmPrinter
-  LLVMInitializeHexagonAsmPrinter
-  LLVMInitializeLanaiAsmPrinter
-  LLVMInitializeLoongArchAsmPrinter
-  LLVMInitializeMipsAsmPrinter
-  LLVMInitializeMSP430AsmPrinter
-  LLVMInitializeNVPTXAsmPrinter
-  LLVMInitializePowerPCAsmPrinter
-  LLVMInitializeRISCVAsmPrinter
-  LLVMInitializeSparcAsmPrinter
-  LLVMInitializeSystemZAsmPrinter
-  LLVMInitializeVEAsmPrinter
-  LLVMInitializeWebAssemblyAsmPrinter
-  LLVMInitializeX86AsmPrinter
-  LLVMInitializeXCoreAsmPrinter
-  LLVMInitializeAArch64AsmParser
-  LLVMInitializeAMDGPUAsmParser
-  LLVMInitializeARMAsmParser
-  LLVMInitializeAVRAsmParser
-  LLVMInitializeBPFAsmParser
-  LLVMInitializeHexagonAsmParser
-  LLVMInitializeLanaiAsmParser
-  LLVMInitializeLoongArchAsmParser
-  LLVMInitializeMipsAsmParser
-  LLVMInitializeMSP430AsmParser
-  LLVMInitializePowerPCAsmParser
-  LLVMInitializeRISCVAsmParser
-  LLVMInitializeSparcAsmParser
-  LLVMInitializeSystemZAsmParser
-  LLVMInitializeVEAsmParser
-  LLVMInitializeWebAssemblyAsmParser
-  LLVMInitializeX86AsmParser
-  LLVMInitializeAArch64Disassembler
-  LLVMInitializeAMDGPUDisassembler
-  LLVMInitializeARMDisassembler
-  LLVMInitializeAVRDisassembler
-  LLVMInitializeBPFDisassembler
-  LLVMInitializeHexagonDisassembler
-  LLVMInitializeLanaiDisassembler
-  LLVMInitializeLoongArchDisassembler
-  LLVMInitializeMipsDisassembler
-  LLVMInitializeMSP430Disassembler
-  LLVMInitializePowerPCDisassembler
-  LLVMInitializeRISCVDisassembler
-  LLVMInitializeSparcDisassembler
-  LLVMInitializeSystemZDisassembler
-  LLVMInitializeVEDisassembler
-  LLVMInitializeWebAssemblyDisassembler
-  LLVMInitializeX86Disassembler
-  LLVMInitializeXCoreDisassembler
   LLVMCreateTargetData
   LLVMDisposeTargetData
   LLVMAddTargetLibraryInfo
   LLVMCopyStringRepOfTargetData
   LLVMByteOrder
+  LLVMPointerSize
   LLVMPointerSizeForAS
   LLVMIntPtrType
   LLVMIntPtrTypeForAS
@@ -275,6 +15,8 @@ EXPORTS
   LLVMIntPtrTypeForASInContext
   LLVMSizeOfTypeInBits
   LLVMStoreSizeOfType
+  LLVMABISizeOfType
+  LLVMABIAlignmentOfType
   LLVMCallFrameAlignmentOfType
   LLVMPreferredAlignmentOfType
   LLVMPreferredAlignmentOfGlobal
@@ -289,23 +31,136 @@ EXPORTS
   LLVMTargetHasJIT
   LLVMTargetHasTargetMachine
   LLVMTargetHasAsmBackend
+  LLVMDisposeTargetMachineOptions
+  LLVMCreateTargetMachineWithOptions
+  LLVMCreateTargetMachineOptions
+  LLVMTargetMachineOptionsSetCPU
+  LLVMTargetMachineOptionsSetFeatures
+  LLVMTargetMachineOptionsSetABI
+  LLVMTargetMachineOptionsSetCodeGenOptLevel
+  LLVMTargetMachineOptionsSetRelocMode
+  LLVMTargetMachineOptionsSetCodeModel
   LLVMCreateTargetMachine
+  LLVMDisposeTargetMachine
   LLVMGetTargetMachineTarget
   LLVMGetTargetMachineTriple
   LLVMGetTargetMachineCPU
   LLVMGetTargetMachineFeatureString
+  LLVMCreateTargetDataLayout
   LLVMSetTargetMachineAsmVerbosity
+  LLVMSetTargetMachineFastISel
+  LLVMSetTargetMachineGlobalISel
+  LLVMSetTargetMachineGlobalISelAbort
+  LLVMSetTargetMachineMachineOutliner
+  LLVMTargetMachineEmitToFile
   LLVMTargetMachineEmitToMemoryBuffer
+  LLVMGetDefaultTargetTriple
   LLVMNormalizeTargetTriple
   LLVMGetHostCPUName
   LLVMGetHostCPUFeatures
   LLVMAddAnalysisPasses
-  LLVMInitializeAMDGPUTargetMCA
-  LLVMInitializeRISCVTargetMCA
-  LLVMInitializeX86TargetMCA
+  LLVMDebugMetadataVersion
+  LLVMGetModuleDebugMetadataVersion
+  LLVMStripModuleDebugInfo
+  LLVMCreateDIBuilderDisallowUnresolved
+  LLVMCreateDIBuilder
+  LLVMDisposeDIBuilder
+  LLVMDIBuilderFinalize
+  LLVMDIBuilderFinalizeSubprogram
+  LLVMDIBuilderCreateCompileUnit
+  LLVMDIBuilderCreateFile
+  LLVMDIBuilderCreateModule
+  LLVMDIBuilderCreateNameSpace
+  LLVMDIBuilderCreateFunction
+  LLVMDIBuilderCreateLexicalBlock
+  LLVMDIBuilderCreateLexicalBlockFile
+  LLVMDIBuilderCreateImportedModuleFromNamespace
+  LLVMDIBuilderCreateImportedModuleFromAlias
+  LLVMDIBuilderCreateImportedModuleFromModule
+  LLVMDIBuilderCreateImportedDeclaration
+  LLVMDIBuilderCreateDebugLocation
+  LLVMDILocationGetLine
+  LLVMDILocationGetColumn
+  LLVMDILocationGetScope
+  LLVMDILocationGetInlinedAt
+  LLVMDIScopeGetFile
+  LLVMDIFileGetDirectory
+  LLVMDIFileGetFilename
+  LLVMDIFileGetSource
+  LLVMDIBuilderGetOrCreateTypeArray
+  LLVMDIBuilderCreateSubroutineType
+  LLVMDIBuilderCreateMacro
+  LLVMDIBuilderCreateTempMacroFile
+  LLVMDIBuilderCreateEnumerator
+  LLVMDIBuilderCreateEnumerationType
+  LLVMDIBuilderCreateUnionType
+  LLVMDIBuilderCreateArrayType
+  LLVMDIBuilderCreateVectorType
+  LLVMDIBuilderCreateUnspecifiedType
+  LLVMDIBuilderCreateBasicType
+  LLVMDIBuilderCreatePointerType
+  LLVMDIBuilderCreateStructType
+  LLVMDIBuilderCreateMemberType
+  LLVMDIBuilderCreateStaticMemberType
+  LLVMDIBuilderCreateMemberPointerType
+  LLVMDIBuilderCreateObjCIVar
+  LLVMDIBuilderCreateObjCProperty
+  LLVMDIBuilderCreateObjectPointerType
+  LLVMDIBuilderCreateQualifiedType
+  LLVMDIBuilderCreateReferenceType
+  LLVMDIBuilderCreateNullPtrType
+  LLVMDIBuilderCreateTypedef
+  LLVMDIBuilderCreateInheritance
+  LLVMDIBuilderCreateForwardDecl
+  LLVMDIBuilderCreateReplaceableCompositeType
+  LLVMDIBuilderCreateBitFieldMemberType
+  LLVMDIBuilderCreateClassType
+  LLVMDIBuilderCreateArtificialType
+  LLVMDITypeGetName
+  LLVMDITypeGetSizeInBits
+  LLVMDITypeGetOffsetInBits
+  LLVMDITypeGetAlignInBits
+  LLVMDITypeGetLine
+  LLVMDITypeGetFlags
+  LLVMDIBuilderGetOrCreateSubrange
+  LLVMDIBuilderGetOrCreateArray
+  LLVMDIBuilderCreateExpression
+  LLVMDIBuilderCreateConstantValueExpression
+  LLVMDIBuilderCreateGlobalVariableExpression
+  LLVMGetDINodeTag
+  LLVMDIGlobalVariableExpressionGetVariable
+  LLVMDIGlobalVariableExpressionGetExpression
+  LLVMDIVariableGetFile
+  LLVMDIVariableGetScope
+  LLVMDIVariableGetLine
+  LLVMTemporaryMDNode
+  LLVMDisposeTemporaryMDNode
+  LLVMMetadataReplaceAllUsesWith
+  LLVMDIBuilderCreateTempGlobalVariableFwdDecl
+  LLVMIsNewDbgInfoFormat
+  LLVMDIBuilderInsertDeclareRecordBefore
+  LLVMDIBuilderInsertDeclareRecordAtEnd
+  LLVMDIBuilderInsertDbgValueRecordBefore
+  LLVMDIBuilderInsertDbgValueRecordAtEnd
+  LLVMDIBuilderCreateAutoVariable
+  LLVMDIBuilderCreateParameterVariable
+  LLVMGetSubprogram
+  LLVMSetSubprogram
+  LLVMDISubprogramGetLine
+  LLVMInstructionGetDebugLoc
+  LLVMInstructionSetDebugLoc
+  LLVMDIBuilderCreateLabel
+  LLVMDIBuilderInsertLabelBefore
+  LLVMDIBuilderInsertLabelAtEnd
+  LLVMGetMetadataKind
+  LLVMCreateCompileUnit
+  LLVMAddFlag
   LLVMShutdown
   LLVMGetVersion
   LLVMCreateMessage
+  LLVMDisposeMessage
+  LLVMContextDispose
+  LLVMContextCreate
   LLVMGetGlobalContext
   LLVMContextSetDiagnosticHandler
   LLVMContextGetDiagnosticHandler
@@ -316,19 +171,28 @@ EXPORTS
   LLVMGetDiagInfoDescription
   LLVMGetDiagInfoSeverity
   LLVMGetMDKindIDInContext
+  LLVMGetMDKindID
+  LLVMGetSyncScopeID
   LLVMGetEnumAttributeKindForName
   LLVMGetLastEnumAttributeKind
+  LLVMCreateEnumAttribute
   LLVMGetEnumAttributeKind
   LLVMGetEnumAttributeValue
+  LLVMCreateTypeAttribute
   LLVMGetTypeAttributeValue
+  LLVMCreateConstantRangeAttribute
+  LLVMCreateStringAttribute
   LLVMGetStringAttributeKind
   LLVMGetStringAttributeValue
   LLVMIsEnumAttribute
   LLVMIsStringAttribute
   LLVMIsTypeAttribute
   LLVMGetTypeByName2
+  LLVMDisposeModule
   LLVMModuleCreateWithName
+  LLVMModuleCreateWithNameInContext
   LLVMCloneModule
+  LLVMSetIsNewDbgInfoFormat
   LLVMGetModuleIdentifier
   LLVMSetModuleIdentifier
   LLVMGetSourceFileName
@@ -344,11 +208,21 @@ EXPORTS
   LLVMModuleFlagEntriesGetKey
   LLVMModuleFlagEntriesGetMetadata
   LLVMGetModuleFlag
+  LLVMAddModuleFlag
+  LLVMDumpModule
+  LLVMPrintModuleToFile
   LLVMPrintModuleToString
   LLVMGetModuleInlineAsm
   LLVMSetModuleInlineAsm2
   LLVMAppendModuleInlineAsm
   LLVMGetInlineAsm
+  LLVMGetInlineAsmAsmString
+  LLVMGetInlineAsmConstraintString
+  LLVMGetInlineAsmDialect
+  LLVMGetInlineAsmFunctionType
+  LLVMGetInlineAsmHasSideEffects
+  LLVMGetInlineAsmNeedsAlignedStack
+  LLVMGetInlineAsmCanUnwind
   LLVMGetModuleContext
   LLVMGetTypeByName
   LLVMGetFirstNamedMetadata
@@ -365,15 +239,25 @@ EXPORTS
   LLVMGetDebugLocFilename
   LLVMGetDebugLocLine
   LLVMGetDebugLocColumn
+  LLVMAddFunction
   LLVMGetNamedFunction
+  LLVMGetNamedFunctionWithLength
   LLVMGetFirstFunction
   LLVMGetLastFunction
   LLVMGetNextFunction
   LLVMGetPreviousFunction
   LLVMSetModuleInlineAsm
+  LLVMGetTypeKind
   LLVMTypeIsSized
   LLVMGetTypeContext
+  LLVMDumpType
   LLVMPrintTypeToString
+  LLVMInt1TypeInContext
+  LLVMInt8TypeInContext
+  LLVMInt16TypeInContext
+  LLVMInt32TypeInContext
+  LLVMInt64TypeInContext
+  LLVMInt128TypeInContext
   LLVMIntTypeInContext
   LLVMInt1Type
   LLVMInt8Type
@@ -385,6 +269,8 @@ EXPORTS
   LLVMGetIntTypeWidth
   LLVMHalfTypeInContext
   LLVMBFloatTypeInContext
+  LLVMFloatTypeInContext
+  LLVMDoubleTypeInContext
   LLVMX86FP80TypeInContext
   LLVMFP128TypeInContext
   LLVMPPCFP128TypeInContext
@@ -395,12 +281,16 @@ EXPORTS
   LLVMX86FP80Type
   LLVMFP128Type
   LLVMPPCFP128Type
+  LLVMFunctionType
   LLVMIsFunctionVarArg
   LLVMGetReturnType
   LLVMCountParamTypes
   LLVMGetParamTypes
+  LLVMStructTypeInContext
   LLVMStructType
+  LLVMStructCreateNamed
   LLVMGetStructName
+  LLVMStructSetBody
   LLVMCountStructElementTypes
   LLVMGetStructElementTypes
   LLVMStructGetTypeAtIndex
@@ -410,25 +300,43 @@ EXPORTS
   LLVMGetElementType
   LLVMGetSubtypes
   LLVMGetNumContainedTypes
+  LLVMArrayType
+  LLVMArrayType2
   LLVMGetArrayLength
+  LLVMGetArrayLength2
+  LLVMPointerType
   LLVMPointerTypeIsOpaque
+  LLVMPointerTypeInContext
   LLVMGetPointerAddressSpace
+  LLVMVectorType
   LLVMScalableVectorType
   LLVMGetVectorSize
+  LLVMGetConstantPtrAuthPointer
+  LLVMGetConstantPtrAuthKey
+  LLVMGetConstantPtrAuthDiscriminator
+  LLVMGetConstantPtrAuthAddrDiscriminator
+  LLVMVoidTypeInContext
   LLVMLabelTypeInContext
-  LLVMX86MMXTypeInContext
   LLVMX86AMXTypeInContext
   LLVMTokenTypeInContext
   LLVMMetadataTypeInContext
   LLVMVoidType
   LLVMLabelType
-  LLVMX86MMXType
   LLVMX86AMXType
   LLVMTargetExtTypeInContext
+  LLVMGetTargetExtTypeName
+  LLVMGetTargetExtTypeNumTypeParams
+  LLVMGetTargetExtTypeTypeParam
+  LLVMGetTargetExtTypeNumIntParams
+  LLVMGetTargetExtTypeIntParam
+  LLVMTypeOf
   LLVMGetValueKind
   LLVMGetValueName2
   LLVMSetValueName2
+  LLVMDumpValue
   LLVMPrintValueToString
+  LLVMGetValueContext
+  LLVMPrintDbgRecordToString
   LLVMReplaceAllUsesWith
   LLVMIsConstant
   LLVMIsUndef
@@ -451,6 +359,7 @@ EXPORTS
   LLVMIsAConstantStruct
   LLVMIsAConstantTokenNone
   LLVMIsAConstantVector
+  LLVMIsAConstantPtrAuth
   LLVMIsAGlobalValue
   LLVMIsAGlobalAlias
   LLVMIsAGlobalObject
@@ -522,8 +431,10 @@ EXPORTS
   LLVMIsAAtomicRMWInst
   LLVMIsAFenceInst
   LLVMIsAMDNode
+  LLVMIsAValueAsMetadata
   LLVMIsAMDString
   LLVMGetValueName
+  LLVMSetValueName
   LLVMGetNextUse
   LLVMGetFirstUse
   LLVMGetUser
@@ -532,27 +443,36 @@ EXPORTS
   LLVMGetOperandUse
   LLVMSetOperand
   LLVMGetNumOperands
+  LLVMConstNull
   LLVMConstAllOnes
   LLVMGetUndef
   LLVMGetPoison
   LLVMIsNull
   LLVMConstPointerNull
+  LLVMConstInt
   LLVMConstIntOfArbitraryPrecision
+  LLVMConstIntOfString
   LLVMConstIntOfStringAndSize
   LLVMConstReal
+  LLVMConstRealOfString
   LLVMConstRealOfStringAndSize
   LLVMConstIntGetZExtValue
   LLVMConstIntGetSExtValue
   LLVMConstRealGetDouble
+  LLVMConstStringInContext
+  LLVMConstStringInContext2
   LLVMConstString
   LLVMIsConstantString
   LLVMGetAsString
   LLVMConstStructInContext
   LLVMConstStruct
+  LLVMConstArray
+  LLVMConstArray2
   LLVMConstNamedStruct
   LLVMGetAggregateElement
   LLVMGetElementAsConstant
   LLVMConstVector
+  LLVMConstantPtrAuth
   LLVMGetConstOpcode
   LLVMAlignOf
   LLVMSizeOf
@@ -569,43 +489,28 @@ EXPORTS
   LLVMConstMul
   LLVMConstNSWMul
   LLVMConstNUWMul
-  LLVMConstAnd
-  LLVMConstOr
   LLVMConstXor
-  LLVMConstICmp
-  LLVMConstFCmp
-  LLVMConstShl
-  LLVMConstLShr
-  LLVMConstAShr
   LLVMConstGEP2
   LLVMConstInBoundsGEP2
+  LLVMConstGEPWithNoWrapFlags
   LLVMConstTrunc
-  LLVMConstSExt
-  LLVMConstZExt
-  LLVMConstFPTrunc
-  LLVMConstFPExt
-  LLVMConstUIToFP
-  LLVMConstSIToFP
-  LLVMConstFPToUI
-  LLVMConstFPToSI
   LLVMConstPtrToInt
   LLVMConstIntToPtr
   LLVMConstBitCast
   LLVMConstAddrSpaceCast
-  LLVMConstZExtOrBitCast
-  LLVMConstSExtOrBitCast
   LLVMConstTruncOrBitCast
   LLVMConstPointerCast
-  LLVMConstIntCast
-  LLVMConstFPCast
   LLVMConstExtractElement
   LLVMConstInsertElement
   LLVMConstShuffleVector
   LLVMBlockAddress
+  LLVMGetBlockAddressFunction
+  LLVMGetBlockAddressBasicBlock
   LLVMConstInlineAsm
   LLVMGetGlobalParent
   LLVMIsDeclaration
   LLVMGetLinkage
+  LLVMSetLinkage
   LLVMGetSection
   LLVMSetSection
   LLVMGetVisibility
@@ -613,26 +518,34 @@ EXPORTS
   LLVMGetDLLStorageClass
   LLVMSetDLLStorageClass
   LLVMGetUnnamedAddress
+  LLVMSetUnnamedAddress
   LLVMGlobalGetValueType
   LLVMHasUnnamedAddr
   LLVMSetUnnamedAddr
+  LLVMGetAlignment
+  LLVMSetAlignment
+  LLVMGlobalSetMetadata
   LLVMGlobalEraseMetadata
   LLVMGlobalClearMetadata
   LLVMGlobalCopyAllMetadata
   LLVMDisposeValueMetadataEntries
   LLVMValueMetadataEntriesGetKind
   LLVMValueMetadataEntriesGetMetadata
+  LLVMAddGlobal
   LLVMAddGlobalInAddressSpace
   LLVMGetNamedGlobal
+  LLVMGetNamedGlobalWithLength
   LLVMGetFirstGlobal
   LLVMGetLastGlobal
   LLVMGetNextGlobal
   LLVMGetPreviousGlobal
   LLVMDeleteGlobal
   LLVMGetInitializer
+  LLVMSetInitializer
   LLVMIsThreadLocal
   LLVMSetThreadLocal
   LLVMIsGlobalConstant
+  LLVMSetGlobalConstant
   LLVMGetThreadLocalMode
   LLVMSetThreadLocalMode
   LLVMIsExternallyInitialized
@@ -658,8 +571,16 @@ EXPORTS
   LLVMIntrinsicCopyOverloadedName2
   LLVMIntrinsicIsOverloaded
   LLVMGetFunctionCallConv
+  LLVMSetFunctionCallConv
   LLVMGetGC
   LLVMSetGC
+  LLVMGetPrefixData
+  LLVMHasPrefixData
+  LLVMSetPrefixData
+  LLVMGetPrologueData
+  LLVMHasPrologueData
+  LLVMSetPrologueData
+  LLVMAddAttributeAtIndex
   LLVMGetAttributeCountAtIndex
   LLVMGetAttributesAtIndex
   LLVMGetEnumAttributeAtIndex
@@ -669,6 +590,7 @@ EXPORTS
   LLVMAddTargetDependentFunctionAttr
   LLVMCountParams
   LLVMGetParams
+  LLVMGetParam
   LLVMGetParamParent
   LLVMGetFirstParam
   LLVMGetLastParam
@@ -688,13 +610,20 @@ EXPORTS
   LLVMMDStringInContext2
   LLVMMDNodeInContext2
   LLVMMetadataAsValue
+  LLVMValueAsMetadata
   LLVMGetMDString
   LLVMGetMDNodeNumOperands
   LLVMGetMDNodeOperands
+  LLVMReplaceMDNodeOperandWith
   LLVMMDStringInContext
   LLVMMDString
   LLVMMDNodeInContext
   LLVMMDNode
+  LLVMDisposeOperandBundle
+  LLVMCreateOperandBundle
+  LLVMGetOperandBundleTag
+  LLVMGetNumOperandBundleArgs
+  LLVMGetOperandBundleArgAtIndex
   LLVMBasicBlockAsValue
   LLVMValueIsBasicBlock
   LLVMValueAsBasicBlock
@@ -704,10 +633,14 @@ EXPORTS
   LLVMCountBasicBlocks
   LLVMGetBasicBlocks
   LLVMGetNextBasicBlock
+  LLVMGetFirstBasicBlock
   LLVMGetLastBasicBlock
   LLVMGetPreviousBasicBlock
   LLVMGetEntryBasicBlock
   LLVMInsertExistingBasicBlockAfterInsertBlock
+  LLVMAppendExistingBasicBlock
+  LLVMCreateBasicBlockInContext
+  LLVMAppendBasicBlockInContext
   LLVMAppendBasicBlock
   LLVMInsertBasicBlockInContext
   LLVMInsertBasicBlock
@@ -715,12 +648,14 @@ EXPORTS
   LLVMRemoveBasicBlockFromParent
   LLVMMoveBasicBlockBefore
   LLVMMoveBasicBlockAfter
+  LLVMGetFirstInstruction
   LLVMGetLastInstruction
   LLVMHasMetadata
   LLVMGetMetadata
   LLVMSetMetadata
   LLVMInstructionGetAllMetadataOtherThanDebugLoc
   LLVMGetInstructionParent
+  LLVMGetNextInstruction
   LLVMGetPreviousInstruction
   LLVMInstructionRemoveFromParent
   LLVMInstructionEraseFromParent
@@ -730,10 +665,15 @@ EXPORTS
   LLVMGetFCmpPredicate
   LLVMInstructionClone
   LLVMIsATerminatorInst
+  LLVMGetNextDbgRecord
+  LLVMGetPreviousDbgRecord
+  LLVMGetFirstDbgRecord
+  LLVMGetLastDbgRecord
   LLVMGetNumArgOperands
   LLVMSetInstructionCallConv
   LLVMGetInstructionCallConv
   LLVMSetInstrParamAlignment
+  LLVMAddCallSiteAttribute
   LLVMGetCallSiteAttributeCount
   LLVMGetCallSiteAttributes
   LLVMGetCallSiteEnumAttribute
@@ -742,12 +682,19 @@ EXPORTS
   LLVMRemoveCallSiteStringAttribute
   LLVMGetCalledFunctionType
   LLVMGetCalledValue
+  LLVMGetNumOperandBundles
+  LLVMGetOperandBundleAtIndex
   LLVMIsTailCall
   LLVMSetTailCall
+  LLVMGetTailCallKind
+  LLVMSetTailCallKind
   LLVMGetNormalDest
   LLVMGetUnwindDest
   LLVMSetNormalDest
   LLVMSetUnwindDest
+  LLVMGetCallBrDefaultDest
+  LLVMGetCallBrNumIndirectDests
+  LLVMGetCallBrIndirectDest
   LLVMGetNumSuccessors
   LLVMGetSuccessor
   LLVMSetSuccessor
@@ -759,27 +706,46 @@ EXPORTS
   LLVMIsInBounds
   LLVMSetIsInBounds
   LLVMGetGEPSourceElementType
+  LLVMGEPGetNoWrapFlags
+  LLVMGEPSetNoWrapFlags
   LLVMAddIncoming
   LLVMCountIncoming
   LLVMGetIncomingValue
   LLVMGetIncomingBlock
   LLVMGetNumIndices
   LLVMGetIndices
+  LLVMCreateBuilderInContext
   LLVMCreateBuilder
+  LLVMPositionBuilder
+  LLVMPositionBuilderBeforeDbgRecords
   LLVMPositionBuilderBefore
+  LLVMPositionBuilderBeforeInstrAndDbgRecords
+  LLVMPositionBuilderAtEnd
+  LLVMGetInsertBlock
   LLVMClearInsertionPosition
   LLVMInsertIntoBuilder
   LLVMInsertIntoBuilderWithName
+  LLVMDisposeBuilder
   LLVMGetCurrentDebugLocation2
+  LLVMSetCurrentDebugLocation2
   LLVMSetInstDebugLocation
   LLVMAddMetadataToInst
   LLVMBuilderGetDefaultFPMathTag
   LLVMBuilderSetDefaultFPMathTag
+  LLVMGetBuilderContext
   LLVMSetCurrentDebugLocation
   LLVMGetCurrentDebugLocation
+  LLVMBuildRetVoid
+  LLVMBuildRet
   LLVMBuildAggregateRet
+  LLVMBuildBr
+  LLVMBuildCondBr
+  LLVMBuildSwitch
   LLVMBuildIndirectBr
+  LLVMBuildCallBr
   LLVMBuildInvoke2
+  LLVMBuildInvokeWithOperandBundles
+  LLVMBuildUnreachable
   LLVMBuildResume
   LLVMBuildLandingPad
   LLVMBuildCleanupRet
@@ -787,6 +753,7 @@ EXPORTS
   LLVMBuildCatchPad
   LLVMBuildCleanupPad
   LLVMBuildCatchSwitch
+  LLVMAddCase
   LLVMAddDestination
   LLVMGetNumClauses
   LLVMGetClause
@@ -800,20 +767,65 @@ EXPORTS
   LLVMSetArgOperand
   LLVMGetParentCatchSwitch
   LLVMSetParentCatchSwitch
+  LLVMBuildAdd
   LLVMBuildNSWAdd
   LLVMBuildNUWAdd
+  LLVMBuildFAdd
+  LLVMBuildSub
   LLVMBuildNSWSub
   LLVMBuildNUWSub
+  LLVMBuildFSub
+  LLVMBuildMul
   LLVMBuildNSWMul
   LLVMBuildNUWMul
+  LLVMBuildFMul
+  LLVMBuildUDiv
   LLVMBuildExactUDiv
+  LLVMBuildSDiv
   LLVMBuildExactSDiv
+  LLVMBuildFDiv
+  LLVMBuildURem
+  LLVMBuildSRem
+  LLVMBuildFRem
+  LLVMBuildShl
+  LLVMBuildLShr
+  LLVMBuildAShr
+  LLVMBuildAnd
+  LLVMBuildOr
+  LLVMBuildXor
   LLVMBuildBinOp
+  LLVMBuildNeg
   LLVMBuildNSWNeg
   LLVMBuildNUWNeg
+  LLVMBuildFNeg
+  LLVMBuildNot
+  LLVMGetNUW
+  LLVMSetNUW
+  LLVMGetNSW
+  LLVMSetNSW
+  LLVMGetExact
+  LLVMSetExact
+  LLVMGetNNeg
+  LLVMSetNNeg
+  LLVMGetFastMathFlags
+  LLVMSetFastMathFlags
+  LLVMCanValueUseFastMathFlags
+  LLVMGetIsDisjoint
+  LLVMSetIsDisjoint
+  LLVMBuildMalloc
+  LLVMBuildArrayMalloc
+  LLVMBuildMemSet
+  LLVMBuildMemCpy
   LLVMBuildMemMove
+  LLVMBuildAlloca
+  LLVMBuildArrayAlloca
   LLVMBuildFree
+  LLVMBuildLoad2
+  LLVMBuildStore
   LLVMBuildGEP2
+  LLVMBuildInBoundsGEP2
+  LLVMBuildGEPWithNoWrapFlags
+  LLVMBuildStructGEP2
   LLVMBuildGlobalString
   LLVMBuildGlobalStringPtr
   LLVMGetVolatile
@@ -833,30 +845,49 @@ EXPORTS
   LLVMBuildSIToFP
   LLVMBuildFPTrunc
   LLVMBuildFPExt
+  LLVMBuildPtrToInt
+  LLVMBuildIntToPtr
+  LLVMBuildBitCast
   LLVMBuildAddrSpaceCast
   LLVMBuildZExtOrBitCast
   LLVMBuildSExtOrBitCast
   LLVMBuildTruncOrBitCast
+  LLVMBuildCast
   LLVMBuildPointerCast
+  LLVMBuildIntCast2
+  LLVMBuildFPCast
   LLVMBuildIntCast
   LLVMGetCastOpcode
+  LLVMBuildICmp
+  LLVMBuildFCmp
   LLVMBuildPhi
+  LLVMBuildCall2
+  LLVMBuildCallWithOperandBundles
   LLVMBuildSelect
   LLVMBuildVAArg
   LLVMBuildExtractElement
   LLVMBuildInsertElement
   LLVMBuildShuffleVector
+  LLVMBuildExtractValue
   LLVMBuildInsertValue
   LLVMBuildFreeze
+  LLVMBuildIsNull
+  LLVMBuildIsNotNull
   LLVMBuildPtrDiff2
   LLVMBuildFence
+  LLVMBuildFenceSyncScope
   LLVMBuildAtomicRMW
+  LLVMBuildAtomicRMWSyncScope
   LLVMBuildAtomicCmpXchg
+  LLVMBuildAtomicCmpXchgSyncScope
   LLVMGetNumMaskElements
   LLVMGetUndefMaskElem
   LLVMGetMaskValue
   LLVMIsAtomicSingleThread
   LLVMSetAtomicSingleThread
+  LLVMIsAtomic
+  LLVMGetAtomicSyncScopeID
+  LLVMSetAtomicSyncScopeID
   LLVMGetCmpXchgSuccessOrdering
   LLVMSetCmpXchgSuccessOrdering
   LLVMGetCmpXchgFailureOrdering
@@ -871,81 +902,18 @@ EXPORTS
   LLVMGetBufferSize
   LLVMDisposeMemoryBuffer
   LLVMCreatePassManager
+  LLVMCreateFunctionPassManagerForModule
   LLVMCreateFunctionPassManager
   LLVMRunPassManager
+  LLVMInitializeFunctionPassManager
+  LLVMRunFunctionPassManager
   LLVMFinalizeFunctionPassManager
   LLVMDisposePassManager
   LLVMIsMultithreaded
   LLVMStartMultithreaded
   LLVMStopMultithreaded
-  LLVMDebugMetadataVersion
-  LLVMGetModuleDebugMetadataVersion
-  LLVMStripModuleDebugInfo
-  LLVMCreateDIBuilderDisallowUnresolved
-  LLVMDIBuilderFinalizeSubprogram
-  LLVMDIBuilderCreateCompileUnit
-  LLVMDIBuilderCreateFile
-  LLVMDIBuilderCreateModule
-  LLVMDIBuilderCreateNameSpace
-  LLVMDIBuilderCreateLexicalBlock
-  LLVMDIBuilderCreateLexicalBlockFile
-  LLVMDIBuilderCreateImportedModuleFromNamespace
-  LLVMDIBuilderCreateImportedModuleFromAlias
-  LLVMDIBuilderCreateImportedModuleFromModule
-  LLVMDIBuilderCreateImportedDeclaration
-  LLVMDILocationGetLine
-  LLVMDILocationGetColumn
-  LLVMDILocationGetScope
-  LLVMDILocationGetInlinedAt
-  LLVMDIFileGetDirectory
-  LLVMDIFileGetFilename
-  LLVMDIFileGetSource
-  LLVMDIBuilderGetOrCreateTypeArray
-  LLVMDIBuilderCreateMacro
-  LLVMDIBuilderCreateTempMacroFile
-  LLVMDIBuilderCreateEnumerator
-  LLVMDIBuilderCreateEnumerationType
-  LLVMDIBuilderCreateUnionType
-  LLVMDIBuilderCreateVectorType
-  LLVMDIBuilderCreateUnspecifiedType
-  LLVMDIBuilderCreateStaticMemberType
-  LLVMDIBuilderCreateMemberPointerType
-  LLVMDIBuilderCreateObjCIVar
-  LLVMDIBuilderCreateObjCProperty
-  LLVMDIBuilderCreateObjectPointerType
-  LLVMDIBuilderCreateQualifiedType
-  LLVMDIBuilderCreateReferenceType
-  LLVMDIBuilderCreateNullPtrType
-  LLVMDIBuilderCreateTypedef
-  LLVMDIBuilderCreateInheritance
-  LLVMDIBuilderCreateForwardDecl
-  LLVMDIBuilderCreateReplaceableCompositeType
-  LLVMDIBuilderCreateBitFieldMemberType
-  LLVMDIBuilderCreateClassType
-  LLVMDIBuilderCreateArtificialType
-  LLVMDITypeGetName
-  LLVMDITypeGetSizeInBits
-  LLVMDITypeGetOffsetInBits
-  LLVMDITypeGetAlignInBits
-  LLVMDITypeGetLine
-  LLVMDITypeGetFlags
-  LLVMDIBuilderGetOrCreateSubrange
-  LLVMDIBuilderGetOrCreateArray
-  LLVMDIBuilderCreateConstantValueExpression
-  LLVMDIGlobalVariableExpressionGetVariable
-  LLVMDIGlobalVariableExpressionGetExpression
-  LLVMDIVariableGetFile
-  LLVMDIVariableGetScope
-  LLVMDIVariableGetLine
-  LLVMTemporaryMDNode
-  LLVMDisposeTemporaryMDNode
-  LLVMMetadataReplaceAllUsesWith
-  LLVMDIBuilderCreateTempGlobalVariableFwdDecl
-  LLVMDIBuilderInsertDeclareBefore
-  LLVMDIBuilderInsertDbgValueBefore
-  LLVMDIBuilderInsertDbgValueAtEnd
-  LLVMDIBuilderCreateAutoVariable
-  LLVMDISubprogramGetLine
-  LLVMInstructionGetDebugLoc
-  LLVMInstructionSetDebugLoc
-  LLVMGetMetadataKind
+  writeOutput
+  initLLVM
+  optimize
+  createTarget
+  getOrInsertFunction

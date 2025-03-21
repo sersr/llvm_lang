@@ -85,6 +85,10 @@
         "semaphore": "cpp",
         "shared_mutex": "cpp",
         "span": "cpp",
-        "thread": "cpp"
-    }
+        "thread": "cpp",
+        "*.tcc": "cpp",
+        "forward_list": "cpp",
+        "format": "cpp",
+        "stop_token": "cpp"
+    },
 }
