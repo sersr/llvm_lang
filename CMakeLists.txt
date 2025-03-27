@@ -11,27 +11,50 @@ link_directories(${LLVM_LIBRARY_DIRS})
 
 include_directories(${LLVM_INCLUDE_DIRS})
 
+set(LLVM_LINK_STATIC_MODE CACHE BOOL "llvm link static mode")
+
+set(LLVM_LINK_ARG "")
+
+if(LLVM_LINK_STATIC_MODE)
+set(LLVM_LINK_ARG "--link-static")
+endif()
+
+if(MINGW)
+    set(llvm_config_arg "--libs")
+else()
+    set(llvm_config_arg "--libnames")
+endif()
+
+message("llvm static: ${LLVM_LINK_ARG}")
 execute_process(
-    COMMAND llvm-config --shared-mode
+    COMMAND llvm-config --shared-mode ${LLVM_LINK_ARG}
     OUTPUT_VARIABLE LLVM_MODE
 )
 execute_process(
-    COMMAND llvm-config --libnames
+    COMMAND llvm-config ${llvm_config_arg} ${LLVM_LINK_ARG}
     OUTPUT_VARIABLE llvm_libs
 )
-# execute_process(
-#     COMMAND llvm-config --system-libs
-#     OUTPUT_VARIABLE system_libs
-# )
+
+execute_process(
+    COMMAND llvm-config --system-libs ${LLVM_LINK_ARG}
+    OUTPUT_VARIABLE system_libs
+)
 string(REPLACE "\n" "" llvm_libs ${llvm_libs})
+
+string(REPLACE " " ";" llvm_libs ${llvm_libs})
 string(REPLACE "\n" "" LLVM_MODE ${LLVM_MODE})
-# string(REPLACE "\n" "" system_libs ${system_libs})
+
+string(REPLACE "\n" "" system_libs ${system_libs})
 
 if(WIN32)
     link_libraries(${llvm_libs})
 
     if(${LLVM_MODE} STREQUAL "static")
-        link_libraries(ntdll)
+        if(MINGW)
+            link_libraries(${system_libs})
+        else()
+            link_libraries(ntdll)
+        endif()
     endif()
 
     add_library(${PROJECT_NAME} SHARED
