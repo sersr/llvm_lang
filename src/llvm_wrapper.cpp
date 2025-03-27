@@ -58,7 +58,7 @@ LLVMTargetMachineRef createTarget(LLVMModuleRef M, char *tripleStr) {
   auto CPU = "";
   auto Features = "";
 
-  auto RM = std::optional<Reloc::Model>();
+  auto RM = Reloc::PIC_;
 
   auto targetMachine = Target->createTargetMachine(TargetTriple.getTriple(),
                                                    CPU, Features, opt, RM);
